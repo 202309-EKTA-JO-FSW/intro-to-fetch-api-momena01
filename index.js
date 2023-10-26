@@ -1,10 +1,9 @@
 // Please read the README.md to understand what to do. Happy Coding !
 async function fetchUserData() {
     try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/users');
-
-        const usersData = await response.json();
-
+        const res = await fetch('https://jsonplaceholder.typicode.com/users');
+        const usersData = await res.json();
+        // console.log(usersData);
         const modifiedUsers = usersData.map(user => ({
             name: user.name,
             username: user.username,
@@ -17,15 +16,17 @@ async function fetchUserData() {
         console.log('Modified User List:', modifiedUsers);
 
         const filteredUsers = modifiedUsers.filter(user => user.email.endsWith('.biz'));
-        console.log('Filtered User List (with .biz domain in email):', filteredUsers);
+        console.log('filtered Users List:', filteredUsers);
 
         modifiedUsers.sort((a, b) => a.name.localeCompare(b.name));
         console.log('Sorted User List (Alphabetically by Name):', modifiedUsers);
 
-        return usersData;
-    } catch (error) {
-        console.error('Error fetching user data:', error.message);
-        throw error;
+
+    } catch (err) {
+        console.log(err);
+    } finally {
+        console.log('the opreation is done ');
     }
 }
 fetchUserData()
+
